@@ -1,30 +1,34 @@
 module Kernel
-  __colors__ = {
-    red:     '[91m',
-    green:   '[92m',
-    yellow:  '[93m',
-    blue:    '[94m',
-    magenta: '[95m',
-    cyan:    '[96m',
-    white:   '[37m',
-    black:   '[30m'
-  }
-  
-  old_puts = method :puts
- 
-  aux_rb_body = proc do |str|
-    str.chars.inject("") {|acc,c| acc << "\e[5m\e" + __colors__.values[rand(__colors__.size - 1)] + c}.<< "\e[0m"
+
+  colors = Hash.new
+
+  std_coloring = proc do |color_code, str|
+    "\e#{color_code}#{str}\e[0m"
+  end.curry()
+
+  rainbow_coloring = proc do |str|
+    str.chars.inject("") { |acc,c| acc + colors.values[rand(colors.size - 2)].(c) }
   end
 
-  p_color_body = proc do |print_m_sym, obj, color = nil|
-    color_s = if color == :rainbow
-      aux_rb_body.(obj.send(print_m_sym))
-    elsif color && __colors__[color.to_sym]
-      "\e#{__colors__[color.to_sym]}#{obj.send(print_m_sym)}\e[0m"
-    else
-      obj
-    end
-    old_puts.(color_s)
+  colors.merge!({
+    red:     std_coloring.('[91m'),
+    green:   std_coloring.('[92m'),
+    yellow:  std_coloring.('[93m'),
+    blue:    std_coloring.('[94m'),
+    magenta: std_coloring.('[95m'),
+    cyan:    std_coloring.('[96m'),
+    white:   std_coloring.('[37m'),
+    black:   std_coloring.('[30m'),
+    rainbow: rainbow_coloring
+  })
+
+  old_puts = method :puts
+
+  p_color_body = proc do |print_m_sym, obj, *args|
+    maybe_color = args.last
+    fancy_str = colors[maybe_color].(obj.send(print_m_sym)) rescue obj
+    args.pop unless fancy_str == obj
+    old_puts.(fancy_str, args)
   end.curry()
 
   define_method :puts, p_color_body.(:to_s)

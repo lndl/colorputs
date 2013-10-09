@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name          = 'colorputs'
-  s.version       = '0.2.0'
+  s.version       = '0.2.2'
   s.date          = '2013-10-07'
   s.summary       = "Color in puts method!!"
   s.description   = "Enables to use puts and p standard methods with a easy color interface"
