@@ -6,7 +6,7 @@ Color in p and puts method!
 Description
 -----------
 
-Colorputs provides a beatiful color printing for console-based applications
+Colorputs provides a beatiful color printing for Ruby console-based applications
 
 Instalation
 -----------
