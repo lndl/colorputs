@@ -6,7 +6,7 @@ Color in p and puts method!
 Description
 -----------
 
-Colorputs provides a beatiful color printing for Ruby console-based applications
+Colorputs provides a beatiful color (and format) printing for Ruby console-based applications
 
 Instalation
 -----------
@@ -20,12 +20,29 @@ Examples of usage
     
 Will print out "Hello world!" colored in red.
 
-Availables colors and modes
----------------------------
+    p 'Hello world!', :_bl
+    
+Will print out a blinking "Hello world!".
+
+In addition, it's possible to combine both color and mode (for now, only one of each)
+and if some of them are mispelled, Colorputs will try to parse the another part if this one
+is well-spelled. Examples:
+
+    p 'Hello world!', :blue_u
+    
+Will print out an underlined "Hello world!" colored in blue.
+
+    p 'Hello world!', :wrong_r
+    
+Will not print out the "Hello world!" message colored, but reversed.
+Same behavior in the opposite case (correct color, wrong format mode)
+
+Availables colors
+-----------------
 
 <table>
   <tr>
-    <th>Symbol</th><th>Color/Mode</th>
+    <th>Symbol</th><th>Color</th>
   </tr>
   <tr>
     <td>:red</td><td>Red</td>
@@ -53,5 +70,26 @@ Availables colors and modes
   </tr>
   <tr>
     <td>:rainbow</td><td>Rainbow colors!</td>
+  </tr>
+</table>
+
+Availables modes
+-----------------
+
+<table>
+  <tr>
+    <th>Symbol</th><th>Mode</th>
+  </tr>
+  <tr>
+    <td>:_b</td><td>Bold</td>
+  </tr>
+  <tr>
+    <td>:_u</td><td>Underlined</td>
+  </tr>
+  <tr>
+    <td>:_bl</td><td>Blinked</td>
+  </tr>
+  <tr>
+    <td>:_r</td><td>Reversed</td>
   </tr>
 </table>
