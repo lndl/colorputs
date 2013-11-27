@@ -46,12 +46,29 @@ describe 'Colorputs:' do
       end
     end
 
-    describe 'when blinking suffix is sent,' do
-      it 'must return like the original p method' do
-        @mco.send(:p, 'Hello', :red_b).should eql(p 'Hello', :red_b)
+    describe 'when a valid color/mode string is sent, ' do
+      it 'must ignore it (only symboles are accepted)' do
+        @mco.send(:p, 'Hello', 'green_b').should eql(p 'Hello', 'green_b')
+        @mco.send(:p, 'Hello', 'green_b').size.should eql(2)
       end
-      it 'must return only one valid string argument' do
-        @mco.send(:p, 'Hello', :red_b).should be_a_kind_of String
+    end
+
+    describe 'when mode suffix is sent,' do
+      describe 'when is used in combination with color' do
+        it 'must return like the original p method' do
+          @mco.send(:p, 'Hello', :red_b).should eql(p 'Hello')
+        end
+        it 'must return only one valid string argument' do
+          @mco.send(:p, 'Hello', :red_b).should be_a_kind_of String
+        end
+      end
+      describe 'when is not used in combination with color' do
+        it 'must return like the original p method' do
+          @mco.send(:p, 'Hello', :_b).should eql(p 'Hello')
+        end
+        it 'must return only one valid string argument' do
+          @mco.send(:p, 'Hello', :_b).should be_a_kind_of String
+        end
       end
     end
   end
@@ -82,9 +99,22 @@ describe 'Colorputs:' do
       end
     end
 
-    describe 'when blinking suffix is sent,' do
-      it 'must return like the original puts method' do
-        @mco.send(:puts, 'Hello', :red_b).should eql(puts 'Hello', :red_b)
+    describe 'when a valid color/mode string is sent, ' do
+      it 'must ignore it (only symboles are accepted)' do
+        @mco.send(:puts, 'Hello', 'green_b').should eql(puts 'Hello', 'green_b')
+      end
+    end
+
+    describe 'when mode suffix is sent,' do
+      describe 'when is used in combination with color' do
+        it 'must return like the original p method' do
+          @mco.send(:puts, 'Hello', :red_b).should eql(puts 'Hello')
+        end
+      end
+      describe 'when is not used in combination with color' do
+        it 'must return like the original p method' do
+          @mco.send(:puts, 'Hello', :_b).should eql(puts 'Hello')
+        end
       end
     end
   end
