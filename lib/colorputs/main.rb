@@ -10,7 +10,7 @@ module Colorputs
   end.curry()
 
   std_coloring = proc do |color_code, str|
-    format_wrapper.(color_code, str, 0)
+    format_wrapper.(color_code, str, 39)
   end.curry()
 
   rainbow_coloring = proc do |str|
